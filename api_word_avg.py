@@ -17,7 +17,7 @@ userag = musicbrainzngs.set_useragent("My tech app", "1.0.0", contact="cristina_
 
 #### Retry the network connection in case of dropping ####
 def retry_connection(retries,max_retries):
-    wait = retries * 3;
+    wait = retries * 3
     print ('\rNetwork Error! Waiting %s secs and retrying...                      ' % wait,end='') 
     sys.stdout.flush()
     time.sleep(wait)
@@ -103,8 +103,7 @@ def Validate_artist():
                 continue
             else:
                 artist_valid = True
-                print(" \r                                     ", end = '')  
-                print(" \nSongs found: %d " % (len(song_list)))                
+                print(" \rSongs found: %d                                  " % (len(song_list)))                
         else:
             print("\nNo artist found. Try typing the artist name again and press Enter.")
     return  artist_input, song_list  
@@ -125,7 +124,7 @@ def Song_list(list_dict_artist_id):
             #Remove the duplicates
             [song_list.append(song) for song in title_rec if song not in song_list]
             browse_rec_count+=len(browse_rec)  
-            print(" \rSongs found: %d " % (len(song_list)), end = '')
+            print(" \rSongs found: %d                                      " % (len(song_list)), end = '')
             #Find if there are other recordings
             while len(browse_rec)>=limit_art:
                 offset_art+=limit_art
@@ -134,7 +133,7 @@ def Song_list(list_dict_artist_id):
                 title_rec = list(pd.DataFrame(browse_rec)['title'])
                 [song_list.append(song) for song in title_rec if song not in song_list]
                 browse_rec_count += len(browse_rec)
-                print(" \rSongs found: %d " % (len(song_list)), end = '')    
+                print(" \rSongs found: %d                                 " % (len(song_list)), end = '')    
     return song_list
 
 ######## Preprocess the lyrics ########
