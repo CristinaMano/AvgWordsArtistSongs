@@ -15,8 +15,9 @@ print("Lyrics word counter v1 by Cristina Manoila")
 #Create user agent for musicbrainzngs API based on app name, version and contact - either email or url
 userag = musicbrainzngs.set_useragent("My tech app", "1.0.0", contact="cristina_manoila28@yahoo.com") 
 
-"""Retry the network connection in case of dropping """
 def retry_connection(retries,max_retries):
+    """Retry the network connection in case of dropping based on
+    the max_retries reached """
     wait = retries * 3
     print ('\rNetwork Error! Waiting %s secs and retrying...                      ' % wait,end='') 
     sys.stdout.flush()
@@ -27,8 +28,10 @@ def retry_connection(retries,max_retries):
         sys.exit('Exit Program')   
     return retries
 
-"""Search artist"""
 def API_Search_artist(artist_input):
+    """Search artist using musicbrainzngs API where:
+    retries, max_retries, and success are variables for retrying 
+    the network connection"""
     #variables defined for retrying the network connection
     retries,max_retries,success = 1, 3, False
     while not success and retries <= max_retries:
@@ -43,9 +46,10 @@ def API_Search_artist(artist_input):
             #Retry to reconnect
             retries = retry_connection(retries,max_retries)
 
-"""Browse recordings"""
 def API_Browse_recordings(id_art, limit_art, offset_art):
-    #Variables defined for retrying the network connection
+    """Browse recordings using musicbrainzngs API where:
+    retries, max_retries, and success are variables for retrying 
+    the network connection"""
     retries,max_retries,success = 1, 3, False
     while not success and retries <= max_retries:
         try:
@@ -59,9 +63,9 @@ def API_Browse_recordings(id_art, limit_art, offset_art):
             #Retry to reconnect
             retries = retry_connection(retries,max_retries)
 
-"""Get lyrics song"""
 def API_Get_lyrics(url):
-    #Variables defined for retrying the network connection
+    """Get lyrics song where retries, max_retries, and success
+    are variables for retrying the network connection"""
     retries,max_retries,success = 1, 3, False
     while not success and retries <= max_retries:
         try:
@@ -75,8 +79,8 @@ def API_Get_lyrics(url):
             #Retry to reconnect
             retries = retry_connection(retries,max_retries)
 
-"""Validation of the artist"""
 def Validate_artist():
+    """Validation of the artist"""
     artist_valid = False
     print("\nType the artist name and press Enter: ")
     while not artist_valid:
@@ -108,8 +112,9 @@ def Validate_artist():
             print("\nNo artist found. Try typing the artist name again and press Enter.")
     return  artist_input, song_list  
             
-"""Get the songs list"""
+
 def Song_list(list_dict_artist_id):
+    """Get the songs list where 50 songs are read sequentially"""
     song_list = []
     limit_art = 50
     offset_art = 0
@@ -136,17 +141,17 @@ def Song_list(list_dict_artist_id):
                 print(" \rSongs found: %d                                 " % (len(song_list)), end = '')    
     return song_list
 
-"""Preprocess the lyrics"""
 def lyrics_processing(lyrics):
+    """Preprocess the lyrics"""
     lyrics_a = lyrics.replace(r"\n", " ")
     lyrics_b = lyrics_a.replace(r"\r", " ")
     text_list = list(lyrics_b.rsplit())
     words_count = len(text_list)
     return words_count
 
-"""Count the words and songs and make the average of words in the artistst'songs"""
 def API_word_average(song_list,artist_input):
-    #Variable defined for calculation the average number of words in the artist' songs
+    """Count the words and songs and make the average of words in the artistst'songs
+    where: total_words_count and songs_count are defined for calculation the average"""
     total_words_count = 0
     songs_count = 0
     for _,title in enumerate(song_list):
