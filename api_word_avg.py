@@ -15,7 +15,7 @@ print("Lyrics word counter v1 by Cristina Manoila")
 #Create user agent for musicbrainzngs API based on app name, version and contact - either email or url
 userag = musicbrainzngs.set_useragent("My tech app", "1.0.0", contact="cristina_manoila28@yahoo.com") 
 
-#### Retry the network connection in case of dropping ####
+"""Retry the network connection in case of dropping """
 def retry_connection(retries,max_retries):
     wait = retries * 3
     print ('\rNetwork Error! Waiting %s secs and retrying...                      ' % wait,end='') 
@@ -27,7 +27,7 @@ def retry_connection(retries,max_retries):
         sys.exit('Exit Program')   
     return retries
 
-########## Search artist ##########
+"""Search artist"""
 def API_Search_artist(artist_input):
     #variables defined for retrying the network connection
     retries,max_retries,success = 1, 3, False
@@ -43,7 +43,7 @@ def API_Search_artist(artist_input):
             #Retry to reconnect
             retries = retry_connection(retries,max_retries)
 
-##########  Browse recordings ##########
+"""Browse recordings"""
 def API_Browse_recordings(id_art, limit_art, offset_art):
     #Variables defined for retrying the network connection
     retries,max_retries,success = 1, 3, False
@@ -59,7 +59,7 @@ def API_Browse_recordings(id_art, limit_art, offset_art):
             #Retry to reconnect
             retries = retry_connection(retries,max_retries)
 
-######## Get lyrics song ########
+"""Get lyrics song"""
 def API_Get_lyrics(url):
     #Variables defined for retrying the network connection
     retries,max_retries,success = 1, 3, False
@@ -75,7 +75,7 @@ def API_Get_lyrics(url):
             #Retry to reconnect
             retries = retry_connection(retries,max_retries)
 
-######## Validation of the artist ########
+"""Validation of the artist"""
 def Validate_artist():
     artist_valid = False
     print("\nType the artist name and press Enter: ")
@@ -108,7 +108,7 @@ def Validate_artist():
             print("\nNo artist found. Try typing the artist name again and press Enter.")
     return  artist_input, song_list  
             
-######## Get the songs list ########
+"""Get the songs list"""
 def Song_list(list_dict_artist_id):
     song_list = []
     limit_art = 50
@@ -136,7 +136,7 @@ def Song_list(list_dict_artist_id):
                 print(" \rSongs found: %d                                 " % (len(song_list)), end = '')    
     return song_list
 
-######## Preprocess the lyrics ########
+"""Preprocess the lyrics"""
 def lyrics_processing(lyrics):
     lyrics_a = lyrics.replace(r"\n", " ")
     lyrics_b = lyrics_a.replace(r"\r", " ")
@@ -144,7 +144,7 @@ def lyrics_processing(lyrics):
     words_count = len(text_list)
     return words_count
 
-######## Count the words and songs and make the average of words in the artistst'songs ########
+"""Count the words and songs and make the average of words in the artistst'songs"""
 def API_word_average(song_list,artist_input):
     #Variable defined for calculation the average number of words in the artist' songs
     total_words_count = 0
@@ -177,8 +177,9 @@ def Main():
         if user_input == "N":
             exit_request = True
             
-#Call the main function        
-Main()    
+        
+if __name__ == "__main__":      
+    Main()
 
 
 
